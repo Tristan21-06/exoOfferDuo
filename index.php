@@ -4,16 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
         <link href="/assets/css/style.min.css" rel="stylesheet">
+
         <title>Accueil</title>
     </head>
     <body>
-        <nav id="nav">
-            <div>
-                <a href="#" class="brand-logo"><img src="/assets/img/logo_2x_feoygs.webp" alt="Logo ITAkademy"></a>
-                <ul>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo center"><img src="/assets/img/logo_2x_feoygs.webp" alt="Logo ITAkademy"></a>
+                <ul id="nav-mobile">
                     <li>
-                        <a href="/pages/cart.html">
+                        <a data-target="slide-out" id="show-cart" class="sidenav-trigger" href="#">
                             <span class="material-icons">
                                 shopping_cart
                             </span>
@@ -23,8 +28,18 @@
             </div>
         </nav>
 
+        <section id="slide-out" class="sidenav">
+            <a href="#" data-target="slide-out" class="sidenav-close"><i class="material-icons">close</i></a>
+            <div id="error-connect">
+                <blockquote></blockquote>
+            </div>
+            <div id="display-cart">
+                
+            </div>
+        </section>
+        
+
         <section id="presentation">
-            
             <div class="content">
                 <div id="text">
                     <h2>
@@ -44,13 +59,16 @@
                     <figcaption>Flash McQueen</figcaption>
                 </div>
             </div>
-            
         </section>
 
         <section id="product">
             
         </section>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="/assets/js/cart.min.js"></script>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </body>
 </html>
