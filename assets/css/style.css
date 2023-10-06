@@ -1,3 +1,4 @@
+/* ---- base ---- */
 html {
     font-size: 62.5%;
 }
@@ -43,7 +44,9 @@ figcaption {
     font-style: italic;
     margin-top: 1rem;
 }
+/* -------- */
 
+/* ---- Navigation ---- */
 nav {
     background: white;
     padding: 2% 10%;
@@ -101,17 +104,65 @@ nav ul a.active {
     color: #ac2300;
 }
 
-section {
+/* -------- */
+
+/* ---- main ---- */
+section:not(.no-pad) {
     padding: 5% 10%;
 }
 
 #presentation, 
-#product {
+#product,
+footer {
     background-color: #ac2300;
 }
 
 #articles {
     background-color: #d12b00;
+}
+
+#articles .row {
+    align-items: center;
+    display: flex;
+}
+
+#articles .tags {
+    width: 100%;
+    z-index: 996;
+    position: absolute;
+    min-height: 50px;
+}
+
+#articles .col .row {
+    margin: 0;
+}
+
+#articles .tags *:not(.offer-tag) {
+    text-align: end;
+}
+
+#articles .price p {
+    font-size: 2.4rem;
+    margin: 5px;
+}
+
+#articles .cut p {
+    text-decoration: line-through;
+}
+
+#articles .offer-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row .card-image {
+    min-height: 500px;
+}
+
+.row .card .card-title{
+    background-color: #0000008f;
+    bottom: -25px;
 }
 
 section .content {
@@ -149,6 +200,19 @@ section .content {
 
 #product .img-content img {
     filter: drop-shadow(30px 10px 4px black);
+}
+
+.red.toast{
+    background-color: #fc4c4c;
+}
+
+.green.toast{
+    background-color: #117011;
+}
+
+#toast-container {
+    top: 5%;
+    right: 3%;
 }
 
 .input-field>label{
@@ -190,7 +254,7 @@ a.sidenav-trigger{
     display: flex;
     width: 100%;
     justify-content: center;
-} 
+}
 
 form button[type="submit"] {
     background-color: #ac2300;
@@ -227,7 +291,13 @@ form#user-connect{
 #to-product:focus {
     background-color: #f33100;
 }
+/* -------- */
 
+/* ---- footer ---- */
+
+/* --------
+
+/* ---- medias query ---- */
 @media (min-width: 769px){
     .reverse .text-content {
         padding-left: 30px;

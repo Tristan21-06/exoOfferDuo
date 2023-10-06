@@ -47,9 +47,9 @@
         </header>
 
         <main>
-            <section id="slide-out" class="sidenav">
+            <section id="slide-out" class="no-pad sidenav">
                 <a href="#" data-target="slide-out" class="sidenav-close"><i class="material-icons">close</i></a>
-                <div id="error-connect tc-white">
+                <div id="error-connect" class="tc-white">
                     <blockquote></blockquote>
                 </div>
                 <div id="display-cart">
@@ -79,7 +79,7 @@
                 </div>
             </section>
             
-            <section id="video">
+            <section id="video" class="no-pad">
                     <video id="background-video" autoplay loop muted>
                         <source src="/assets/videos/Cars_Kachow_Compilation.mp4" type="video/mp4">
                     </video>
@@ -97,7 +97,9 @@
                         </h2>
                         <div>
                             <p>
-                                Le produit dérivé est un mug Flash McQueen, il est disponible sur ce site en achat à l’unité ou en pack de 2. Ce mug peut être lavé à la main ou avec le lave-vaisselle. Si vous voulez faire plaisir à votre enfant, achetez-le! <br>
+                                Ce mug Cars typique présente un des caractères emblématiques du film, Flash McQueen. Le mug est conçu pour être utilisé pour boire des boissons chaudes ou froides comme le café ou le thé. 
+                                Il y a une image dessinée, des couleurs vives et des éléments de l'univers de Cars pour plaire aux fans de la franchise. Il est disponible sur ce site en achat à l’unité ou en pack de 2. 
+                                Ce mug peut être lavé à la main ou avec le lave-vaisselle. Si vous voulez faire plaisir à votre enfant, achetez-le! <br>
                                 Date de sorite: 15 OCT. 2016
                             </p>
                             <a id="to-product" class="waves-effect waves-light btn" href="#articles">Voir le produit</a>
@@ -107,22 +109,56 @@
             </section>
 
             <section id="articles">
-                <div class="content tc-white">
-                    <div id="unitary">
-                        <div class="img">
-                            <img src="/assets/img/mug_flash_mcqueen.webp" alt="Mug Flash McQueen">
-                            <figcaption>Mug Flash McQueen</figcaption>
+                <div class="content">
+                    <div class="row">
+                        <div class="col s12 m5 unitary">
+                            <div class="card">
+                                <div class="tags row">
+                                    <div class="col s12 m8"></div>
+                                    <div class="col s12 m4 price">
+                                        <p>
+                                            8.00 €
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card-image">
+                                    <img src="/assets/img/mug_flash_mcqueen.webp" alt="Mug Flash McQueen">
+                                    <span class="card-title">Mug à l'unité</span>
+                                    <a data-id="1" class="btn-floating halfway-fab waves-effect waves-light red add-to-cart"><i class="material-icons">add_shopping_cart</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>Mug Flash McQueen vendu à l'unité</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="offer-tag">
-                        OFFRE DUO
-                    </div>
-
-                    <div id="duo-offer">
-                        <div class="img">
-                            <img src="/assets/img/mug_duo_flash_mcqueen.webp" alt="Duo Mug Flash McQueen">
-                            <figcaption>Mug Flash McQueen</figcaption>
+                        <div class="col s12 m5 duo">
+                            <div class="card">
+                                <div class="tags row">
+                                    <div class="offer-tag tc-white col s12 m4">
+                                        <p>
+                                            OFFRE DUO
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m4 cut">
+                                        <p>
+                                            8.00 €
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m4 price">
+                                        <p>
+                                            12.00 €
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card-image">
+                                    <img src="/assets/img/mug_duo_flash_mcqueen.webp" alt="Mug Flash McQueen">
+                                    <span class="card-title">Pack duo de mugs</span>
+                                    <a data-id="2" class="btn-floating halfway-fab waves-effect waves-light red add-to-cart"><i class="material-icons">add_shopping_cart</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>Pack de 2 mugs Flash McQueen en promo</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,7 +166,9 @@
         </main>
 
         <footer>
-            
+            <section>
+                
+            </section>
         </footer>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -12,8 +12,9 @@ fetch('/localDB/DB.json')
 
 document.getElementById('show-cart').addEventListener('click', buildCart);
 
-document.getElementsByClassName('add-to-cart').forEach(el => {
-    el.addEventListener('click', addArticle(el.dataset.id));
+let addToCart = Array.from(document.getElementsByClassName('add-to-cart'));
+addToCart.forEach(el => {
+    el.addEventListener('click', event => addArticle(el.dataset.id, event));
 });
 
 // build side div content
@@ -42,12 +43,12 @@ function buildCart() {
         html += '<div class="card-image">';
         html += `<img src="${article.image}">`;
         html += `<span class="card-title">${article.name}</span>`;
-        html += `<a class="btn-floating halfway-fab waves-effect waves-light red" data-id="${article.id}">`;//onclick
+        html += `<a class="btn-floating halfway-fab waves-effect waves-light red cancel-article-btn" data-id="${article.id}">`;//onclick
         html += '<i class="material-icons">delete</i>';
         html += '</a>';
         html += '</div>';
         html += '<div class="card-content">';
-        html += `<p>Quantité </p> <input type="number" data-id="${article.id}">`;//onchange
+        html += `<p>Quantité </p> <input id="first_name" type="number" class="quantity-article-btn validate" data-id="${article.id}">`;//onchange
         html += '</div>';
         html += '</div>';
     });
@@ -57,27 +58,60 @@ function buildCart() {
 
     $('#display-cart').html(html);
 
-    document.getElementsByClassName('cancel-article-btn').forEach(el => {
+    let cancelButtons = Array.from(document.getElementsByClassName('cancel-article-btn'));
+    cancelButtons.forEach(el => {
         el.addEventListener('click', cancelArticle(el.dataset.id));
     });
-    document.getElementsByClassName('quantity-article-btn').forEach(el => {
+
+    let quantityInputs = Array.from(document.getElementsByClassName('quantity-article-btn'));
+    quantityInputs.forEach(el => {
         el.addEventListener('change', editQuantity(el.dataset.id, el.value));
     });
 }
 
 // add chosen article
-function addArticle(id){
-    currCart.push({id: id, quantity: 1});
+function addArticle(id, e){
+    e.preventDefault();
+    if(!currU){
+        $('#show-cart')[0].click();
+        M.toast({html: 'Veuillez vous connecter!', classes: 'red toast'});
+        buildCart();
+        return;
+    }
+
+    currCart.articles.push({id: id, quantity: 1});
+
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+
+    jsonObjects.carts.objects[indexCart] = currCart;
+
+    writeFile();
+
+    M.toast({html: 'Article ajouté au panier!', classes: 'green toast'});
 }
 
 // cancel chosen article
 function cancelArticle(id){
     currCart.articles.filter(el => el.id != id);
+
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+
+    jsonObjects.carts.objects[indexCart] = currCart;
+
+    writeFile();
+
+    M.toast({html: 'Article supprimé du panier!', classes: 'red toast'});
 }
 
 //edit quantity for chosen article
 function editQuantity(id, qty) {
     currCart.articles.find(el => el.id == id).quantity = qty;
+
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+
+    jsonObjects.carts.objects[indexCart] = currCart;
+
+    writeFile();
 }
 
 // simulates user connection
@@ -103,21 +137,16 @@ async function connectUser(e) {
     if(!currCart){
         jsonObjects.carts.lastId++;
 
-        emptyCart = {
+        currCart = {
             id: jsonObjects.carts.lastId,
             articles: [],
-            user: currU.id
+            user: currU.id,
+            status: "Panier"
         };
 
-        jsonObjects.carts.objects.push(emptyCart);
+        jsonObjects.carts.objects.push(currCart);
 
-        $.ajax({
-            url: "/includes/writeFile.php",
-            data: { jsonString: JSON.stringify(jsonObjects) },
-            success: function(){
-                console.log('KACHOWWW');
-            }
-        });
+        writeFile();
     }
 
     let loader = "";
@@ -174,6 +203,17 @@ function userForm(){
     html += "<div>";
 
     return html
+}
+
+//write in localDB file
+function writeFile(){
+    $.ajax({
+        url: "/includes/writeFile.php",
+        data: { jsonString: JSON.stringify(jsonObjects) },
+        success: function(){
+            console.log('KACHOWWW');
+        }
+    });
 }
 
 //utils
