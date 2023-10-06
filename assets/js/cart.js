@@ -4,11 +4,14 @@ $(document).ready(function(){
 
 let jsonObjects, currU, currCart;
 
-fetch('/localDB/DB.json')
-    .then((response) => response.json())
-    .then((json) => {
-        jsonObjects = json;
-    });
+$.ajax({
+    url: "/includes/getData.php",
+    data: { jsonString: JSON.stringify(jsonObjects) },
+    success: function(result){
+        jsonObjects = JSON.parse(result);
+        console.log(jsonObjects);
+    }
+});
 
 document.getElementById('show-cart').addEventListener('click', buildCart);
 
@@ -38,17 +41,23 @@ function buildCart() {
     html += '<div>';
 
     currCart.articles.forEach(article => {
+        let cart = jsonObjects.carts.objects.find(el => el.id == article.id);
+        let fullArticle = {
+            quantity: article.quantity,
+            ...cart
+        };
+
         html += '<div>';
         html += '<div class="card">';
         html += '<div class="card-image">';
-        html += `<img src="${article.image}">`;
-        html += `<span class="card-title">${article.name}</span>`;
-        html += `<a class="btn-floating halfway-fab waves-effect waves-light red cancel-article-btn" data-id="${article.id}">`;//onclick
+        html += `<img src="${fullArticle.image}">`;
+        html += `<span class="card-title">${fullArticle.name}</span>`;
+        html += `<a class="btn-floating halfway-fab waves-effect waves-light red cancel-article-btn" data-id="${fullArticle.id}">`;//onclick
         html += '<i class="material-icons">delete</i>';
         html += '</a>';
         html += '</div>';
         html += '<div class="card-content">';
-        html += `<p>Quantité </p> <input id="first_name" type="number" class="quantity-article-btn validate" data-id="${article.id}">`;//onchange
+        html += `<p>Quantité </p> <input id="first_name" type="number" class="quantity-article-btn validate" value="${fullArticle.quantity}" data-id="${fullArticle.id}">`;//onchange
         html += '</div>';
         html += '</div>';
     });
@@ -97,21 +106,24 @@ function cancelArticle(id){
     let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
 
     jsonObjects.carts.objects[indexCart] = currCart;
+    M.toast({html: 'Article supprimé du panier!', classes: 'green toast'});
 
     writeFile();
 
-    M.toast({html: 'Article supprimé du panier!', classes: 'red toast'});
 }
 
 //edit quantity for chosen article
 function editQuantity(id, qty) {
+    console.log(currCart);
     currCart.articles.find(el => el.id == id).quantity = qty;
 
-    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart);
 
     jsonObjects.carts.objects[indexCart] = currCart;
 
     writeFile();
+
+    M.toast({html: 'Quantité modifiée!', classes: 'green toast'});
 }
 
 // simulates user connection
@@ -140,7 +152,7 @@ async function connectUser(e) {
         currCart = {
             id: jsonObjects.carts.lastId,
             articles: [],
-            user: currU.id,
+            userId: currU.id,
             status: "Panier"
         };
 
@@ -171,7 +183,7 @@ async function connectUser(e) {
     $('#display-cart').html(loader);
     await delay(4000);
 
-    $('#display-cart').html('<h4>Utilisateur connecté!</h4>');
+    M.toast({html: 'Utilisateur connecté!', classes: 'green toast'});
     await delay(4000);
 
     buildCart();
@@ -211,7 +223,6 @@ function writeFile(){
         url: "/includes/writeFile.php",
         data: { jsonString: JSON.stringify(jsonObjects) },
         success: function(){
-            console.log('KACHOWWW');
         }
     });
 }

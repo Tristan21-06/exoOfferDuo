@@ -107,8 +107,11 @@ nav ul a.active {
 /* -------- */
 
 /* ---- main ---- */
-section:not(.no-pad) {
+section:not(.no-pad):not(.semi-pad) {
     padding: 5% 10%;
+}
+section.semi-pad {
+    padding: 2.5% 5%;
 }
 
 #presentation, 
@@ -294,7 +297,10 @@ form#user-connect{
 /* -------- */
 
 /* ---- footer ---- */
-
+footer section {
+    display: flex;
+    justify-content: end;
+}
 /* --------
 
 /* ---- medias query ---- */
