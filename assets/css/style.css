@@ -9,7 +9,7 @@ html * {
 body {
     font-family: sans-serif;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -24,7 +24,8 @@ h4 {
     font-size: 1.8rem;
 }
 
-em, strong {
+em, 
+strong {
     font-size: inherit;
 }
 
@@ -33,7 +34,7 @@ a {
     transition: color 0.5s;
 }
 
-a:hover {
+body * a:hover {
     color: #272727!important;
 }
 
@@ -43,7 +44,7 @@ figcaption {
     margin-top: 1rem;
 }
 
- nav {
+nav {
     background: white;
     padding: 2% 10%;
     position: sticky;
@@ -88,6 +89,7 @@ nav ul a {
     display: flex!important;
     align-items: center;
     padding: 5px!important;
+    font-size: 1.4rem;
 }
 
 nav ul a:hover span {
@@ -99,35 +101,54 @@ nav ul a.active {
     color: #ac2300;
 }
 
-#presentation {
-    /* background-image: url('/assets/img/bg_flash-mcqueen.webp');
-    background-size: cover; */
-    background-color: #ac2300;
+section {
     padding: 5% 10%;
 }
 
-#presentation .content {
+#presentation, 
+#product {
+    background-color: #ac2300;
+}
+
+#articles {
+    background-color: #d12b00;
+}
+
+section .content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-#presentation * {
-    color: white;
+.tc-white, 
+.tc-white a {
+    color: white!important;
 }
 
-#presentation #text {
+.content .text-content {
     width: 65%;
 }
 
-#presentation #img {
+.content .img-content {
     width: 35%;
 }
 
-#presentation img {
+.offer-tag {
+    background: linear-gradient(#ffae4b, #d32f23);
+    padding: 10px 20px;
+}
+
+.img-content img {
     max-width: 100%;
+}
+
+#presentation .img-content img {
     filter: drop-shadow(30px 10px 4px #d7d11a);
+}
+
+#product .img-content img {
+    filter: drop-shadow(30px 10px 4px black);
 }
 
 .input-field>label{
@@ -161,11 +182,6 @@ a.sidenav-trigger{
     height: auto!important;
     line-height: normal!important;
 }
-
-#error-connect blockquote {
-    color: white;
-}
-
 #slide-out {
     padding: 2rem;
 }
@@ -181,7 +197,8 @@ form button[type="submit"] {
     width: 100%;
 }
 
-form button[type="submit"]:hover, form button[type="submit"]:focus {
+form button[type="submit"]:hover, 
+form button[type="submit"]:focus {
     background-color: #801a01;
 }
 
@@ -192,6 +209,33 @@ form#user-connect{
 #loader-container {
     display: flex;
     justify-content: center;
+}
+
+#video video {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: -10px;
+}
+
+#to-product{
+    background-color: #d12b00;
+    border-radius: 10px;
+}
+
+#to-product:hover,
+#to-product:focus {
+    background-color: #f33100;
+}
+
+@media (min-width: 769px){
+    .reverse .text-content {
+        padding-left: 30px;
+    }
+
+    div:not(.reverse) .text-content {
+        padding-right: 30px;
+    }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -214,15 +258,26 @@ form#user-connect{
         justify-content: end;
     }
 
-    #presentation {
+    section div.reverse{
+        flex-direction: column-reverse;
+    }
+
+    .content * {
+        text-align: center;
+    }
+
+    #presentation,
+    #product {
         padding: 5% 10%;
     }
 
-    #presentation div {
+    #presentation div,
+    #product div {
         width: 100%!important;
     }
 
-    #presentation img {
+    #presentation img,
+    #product img {
         margin-right: -5%;
         max-width: 300px;
     }

@@ -12,6 +12,10 @@ fetch('/localDB/DB.json')
 
 document.getElementById('show-cart').addEventListener('click', buildCart);
 
+document.getElementsByClassName('add-to-cart').forEach(el => {
+    el.addEventListener('click', addArticle(el.dataset.id));
+});
+
 // build side div content
 function buildCart() {
     if(!currU){
@@ -54,21 +58,27 @@ function buildCart() {
     $('#display-cart').html(html);
 
     document.getElementsByClassName('cancel-article-btn').forEach(el => {
-        console.log(el.dataset.id);
         el.addEventListener('click', cancelArticle(el.dataset.id));
     });
     document.getElementsByClassName('quantity-article-btn').forEach(el => {
-        console.log(el.dataset.id);
         el.addEventListener('change', editQuantity(el.dataset.id, el.value));
     });
 }
 
+// add chosen article
+function addArticle(id){
+    currCart.push({id: id, quantity: 1});
+}
+
 // cancel chosen article
 function cancelArticle(id){
-    
+    currCart.articles.filter(el => el.id != id);
 }
 
 //edit quantity for chosen article
+function editQuantity(id, qty) {
+    currCart.articles.find(el => el.id == id).quantity = qty;
+}
 
 // simulates user connection
 async function connectUser(e) {
