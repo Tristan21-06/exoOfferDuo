@@ -4,12 +4,17 @@ $(document).ready(function(){
 
 let jsonObjects, currU, currCart;
 
+// document.onkeydown = function(e){
+//     if(e.key == '@'){
+//         console.log(currCart);
+//     }
+// }
+
 $.ajax({
     url: "/includes/getData.php",
     data: { jsonString: JSON.stringify(jsonObjects) },
     success: function(result){
         jsonObjects = JSON.parse(result);
-        console.log(jsonObjects);
     }
 });
 
@@ -41,11 +46,8 @@ function buildCart() {
     html += '<div>';
 
     currCart.articles.forEach(article => {
-        let cart = jsonObjects.carts.objects.find(el => el.id == article.id);
-        let fullArticle = {
-            quantity: article.quantity,
-            ...cart
-        };
+        let fullArticle = jsonObjects.articles.find(el => el.id == article.id);
+        fullArticle.quantity = article.quantity;
 
         html += '<div>';
         html += '<div class="card">';
@@ -69,12 +71,12 @@ function buildCart() {
 
     let cancelButtons = Array.from(document.getElementsByClassName('cancel-article-btn'));
     cancelButtons.forEach(el => {
-        el.addEventListener('click', cancelArticle(el.dataset.id));
+        el.addEventListener('click', event => cancelArticle(el.dataset.id, event));
     });
 
     let quantityInputs = Array.from(document.getElementsByClassName('quantity-article-btn'));
     quantityInputs.forEach(el => {
-        el.addEventListener('change', editQuantity(el.dataset.id, el.value));
+        el.addEventListener('change', event => editQuantity(el.dataset.id, el.value, event));
     });
 }
 
@@ -88,9 +90,14 @@ function addArticle(id, e){
         return;
     }
 
+    if(currCart.articles.filter(el => el.id == id).length > 0){
+        M.toast({html: 'Article déjà dans le panier!', classes: 'red toast'});
+        return;
+    }
+
     currCart.articles.push({id: id, quantity: 1});
 
-    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart);
 
     jsonObjects.carts.objects[indexCart] = currCart;
 
@@ -100,30 +107,52 @@ function addArticle(id, e){
 }
 
 // cancel chosen article
-function cancelArticle(id){
-    currCart.articles.filter(el => el.id != id);
+function cancelArticle(id, e){
+    if(!e.target.classList.contains("cancel-article-btn") && !e.target.classList.contains("material-icons")){
+        return;
+    }
 
-    let indexCart = jsonObjects.carts.objects.indexOf(currCart.id);
+    let indexCart = jsonObjects.carts.objects.indexOf(currCart);
+    currCart.articles = currCart.articles.filter(el => el.id != id);
 
-    jsonObjects.carts.objects[indexCart] = currCart;
-    M.toast({html: 'Article supprimé du panier!', classes: 'green toast'});
+    if(indexCart >= 0){
+        jsonObjects.carts.objects[indexCart] = currCart;
 
-    writeFile();
+        M.toast({html: 'Article supprimé du panier!', classes: 'green toast'});
 
+        writeFile();
+
+        buildCart();
+    }
 }
 
 //edit quantity for chosen article
-function editQuantity(id, qty) {
-    console.log(currCart);
-    currCart.articles.find(el => el.id == id).quantity = qty;
+function editQuantity(id, qty, e) {
+
+    if(!e.target.classList.contains("quantity-article-btn") || !e.target.classList.contains("material-icons")){
+        return;
+    }
+
+    if(!currCart.articles.length){
+        M.toast({html: 'Article introuvable!', classes: 'red toast'});
+        return;
+    }
 
     let indexCart = jsonObjects.carts.objects.indexOf(currCart);
+    let article = currCart.articles.find(el => el.id = id);
+    let indexArticle = currCart.articles.indexOf(article);    
+    
+    if(indexCart >= 0 && indexArticle >= 0){
+        currCart.articles[indexArticle].quantity = qty;
+        jsonObjects.carts.objects[indexCart] = currCart;
+    
+        writeFile();
+    
+        M.toast({html: 'Quantité modifiée!', classes: 'green toast'});
 
-    jsonObjects.carts.objects[indexCart] = currCart;
+        buildCart();
+    }
 
-    writeFile();
-
-    M.toast({html: 'Quantité modifiée!', classes: 'green toast'});
 }
 
 // simulates user connection

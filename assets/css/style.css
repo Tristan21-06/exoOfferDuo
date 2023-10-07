@@ -3,11 +3,8 @@ html {
     font-size: 62.5%;
 }
 
-html * {
-    font-size: 1.6rem;
-}
-
 body {
+    font-size: 1.6rem;
     font-family: sans-serif;
     margin: 0;
     overflow-x: hidden;
@@ -122,11 +119,6 @@ footer {
 
 #articles {
     background-color: #d12b00;
-}
-
-#articles .row {
-    align-items: center;
-    display: flex;
 }
 
 #articles .tags {
@@ -304,6 +296,13 @@ footer section {
 /* --------
 
 /* ---- medias query ---- */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    #presentation img {
+        margin-right: -5%;
+    }
+}
+
 @media (min-width: 769px){
     .reverse .text-content {
         padding-left: 30px;
@@ -314,9 +313,10 @@ footer section {
     }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
-    #presentation img {
-        margin-right: -5%;
+@media (min-width: 1024px){
+    #articles .row {
+        align-items: center;
+        display: flex;
     }
 }
 
@@ -338,7 +338,7 @@ footer section {
         flex-direction: column-reverse;
     }
 
-    .content * {
+    .content {
         text-align: center;
     }
 
