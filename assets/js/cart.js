@@ -4,12 +4,6 @@ $(document).ready(function(){
 
 let jsonObjects, currU, currCart;
 
-// document.onkeydown = function(e){
-//     if(e.key == '@'){
-//         console.log(currCart);
-//     }
-// }
-
 $.ajax({
     url: "/includes/getData.php",
     data: { jsonString: JSON.stringify(jsonObjects) },
@@ -65,7 +59,7 @@ function buildCart() {
     });
 
     html += '</div>';
-    html += '<a href="/pages/payment.php" class="waves-effect waves-light btn">Valider le panier</a>';
+    html += `<a href="/pages/payment.php?cart=${currCart.id}" id="validate-cart" class="custom-btn red-btn waves-effect waves-light btn">Valider le panier</a>`;
 
     $('#display-cart').html(html);
 
@@ -100,10 +94,10 @@ function addArticle(id, e){
     let indexCart = jsonObjects.carts.objects.indexOf(currCart);
 
     jsonObjects.carts.objects[indexCart] = currCart;
-
     writeFile();
 
     M.toast({html: 'Article ajouté au panier!', classes: 'green toast'});
+    $('#show-cart')[0].click();
 }
 
 // cancel chosen article
@@ -236,7 +230,7 @@ function userForm(){
     html += '</div>';
 
     html += '<div class="input-field">';
-    html += '<button type="submit" class="waves-effect waves-light btn">Se connecter</button>';
+    html += '<button type="submit" class="custom-btn red-btn waves-effect waves-light btn">Se connecter</button>';
     html += '</div>';
     
     

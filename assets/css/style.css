@@ -1,6 +1,7 @@
 /* ---- base ---- */
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -251,13 +252,17 @@ a.sidenav-trigger{
     justify-content: center;
 }
 
-form button[type="submit"] {
+a.red-btn.custom-btn,
+button.red-btn.custom-btn {
     background-color: #ac2300;
     width: 100%;
+    color: white!important;
 }
 
-form button[type="submit"]:hover, 
-form button[type="submit"]:focus {
+a.red-btn.custom-btn:hover,
+a.red-btn.custom-btn:focus,
+button.red-btn.custom-btn:hover,
+button.red-btn.custom-btn:focus {
     background-color: #801a01;
 }
 
