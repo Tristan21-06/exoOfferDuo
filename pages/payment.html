@@ -20,11 +20,83 @@
                 </div>
             </nav>
         </header>
+
         <main>
-
+            <section id="payment">
+                <form class="carousel carousel-slider" id="payment-form">
+                    <div class="row carousel-item" id="first-part">
+                        <h2>Coordonnées</h2>
+                        <div class="input-field col s6">
+                            <input id="last_name" name="last_name" type="text" class="validate">
+                            <label for="last_name">Nom</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="first_name" name="first_name" type="text" class="validate">
+                            <label for="first_name">Prénom</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="email" name="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row carousel-item" id="second-part">
+                        <h2>Paiement</h2>
+                        <div class="input-field col m8 s12">
+                            <input id="card-number" name="card-number" type="number" maxlength="16" class="validate">
+                            <span id="card-value"></span>
+                            <label for="card-number">Numéro de carte</label>
+                        </div>
+                        <div class="input-field col m2 s6">
+                            <input id="ccv-number" name="ccv-number" type="number">
+                            <label for="ccv-number" class="">CCV</label>
+                        </div>
+                        <div class="input-field col m2 s6">
+                            <input id="expiration-card" placeholder="mm/yy" name="expiration-card" type="text" maxLength="5" />
+                            <span id="expiration-value"></span>
+                            <label for="expiration-card" class="">Date d'expiration</label>
+                        </div>
+                    </div>
+                    <div class="carousel-item" id="payment-last" id="last-part">
+                        <div class="row">
+                            <h2>Adresse de livraison</h2>
+                            <div class="input-field col s12">
+                                <input id="address" name="address" type="text" class="validate">
+                                <label for="address">Adresse</label>
+                            </div>
+                            <div class="input-field col m4 s12">
+                                <input id="postal-code" name="postal-code" type="text">
+                                <label for="postal-code" class="">Code postal</label>
+                            </div>
+                            <div class="input-field col m8 s12">
+                                <input id="city" name="city" type="text" class="validate">
+                                <label for="city">Ville</label>
+                            </div>
+                        </div>
+                        <input type="submit" class="tc-white waves-effect waves-light btn disabled" id="valid-payment" disabled value="Valider">
+                    </div>
+                    <div class="slider-actions">
+                        <button type="button" id="carousel-prev" class="waves-effect waves-teal btn-flat">
+                            Précédent
+                        </button>
+                        <button type="button" id="carousel-next" class="tc-white waves-effect waves-light btn">
+                            Suivant
+                        </button>
+                    </div>
+                </form>
+                
+            </section>
         </main>
-        <footer>
 
+        <footer class="tc-white">
+            <section class="semi-pad">
+                <p>© IT Akademy</p>
+            </section>
         </footer>
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="/assets/js/payment.min.js"></script>
+
     </body>
 </html>

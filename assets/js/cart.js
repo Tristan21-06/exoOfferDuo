@@ -6,7 +6,7 @@ let jsonObjects, currU, currCart;
 
 $.ajax({
     url: "/includes/getData.php",
-    data: { jsonString: JSON.stringify(jsonObjects) },
+    data: {},
     success: function(result){
         jsonObjects = JSON.parse(result);
     }
@@ -52,14 +52,14 @@ function buildCart() {
         html += '<i class="material-icons">delete</i>';
         html += '</a>';
         html += '</div>';
-        html += '<div class="card-content">';
-        html += `<p>Quantité </p> <input id="first_name" type="number" class="quantity-article-btn validate" value="${fullArticle.quantity}" data-id="${fullArticle.id}">`;//onchange
+        html += '<div class="card-content quantity-div">';
+        html += `<p>Quantité : </p> <input id="quantity-${fullArticle.id}" type="number" class="quantity-article-btn validate" value="${fullArticle.quantity}" data-id="${fullArticle.id}">`;//onchange
         html += '</div>';
         html += '</div>';
     });
 
     html += '</div>';
-    html += `<a href="/pages/payment.php?cart=${currCart.id}" id="validate-cart" class="custom-btn red-btn waves-effect waves-light btn">Valider le panier</a>`;
+    html += `<a href="/pages/payment.html?cart=${currCart.id}" id="validate-cart" class="custom-btn red-btn waves-effect waves-light btn">Valider le panier</a>`;
 
     $('#display-cart').html(html);
 
@@ -123,7 +123,8 @@ function cancelArticle(id, e){
 //edit quantity for chosen article
 function editQuantity(id, qty, e) {
 
-    if(!e.target.classList.contains("quantity-article-btn") || !e.target.classList.contains("material-icons")){
+    if(!e.target.classList.contains("quantity-article-btn")){
+        M.toast({html: 'Quantité inchangeable!', classes: 'red toast'});
         return;
     }
 
@@ -207,7 +208,7 @@ async function connectUser(e) {
     await delay(4000);
 
     M.toast({html: 'Utilisateur connecté!', classes: 'green toast'});
-    await delay(4000);
+    await delay(2000);
 
     buildCart();
 }
@@ -225,7 +226,7 @@ function userForm(){
     html += '</div>';
 
     html += '<div class="input-field">';
-    html += '<input id="password" type="password" name="password" class="validate">';
+    html += '<input id="password" type="password" name="password" autocomplete="on" class="validate">';
     html += '<label for="password">Mot de passe</label>';
     html += '</div>';
 

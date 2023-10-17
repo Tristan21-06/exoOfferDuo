@@ -118,14 +118,14 @@ footer {
     background-color: #ac2300;
 }
 
+
+#payment,
 #articles {
     background-color: #d12b00;
 }
 
 #articles .tags {
     width: 100%;
-    z-index: 996;
-    position: absolute;
     min-height: 50px;
 }
 
@@ -158,7 +158,27 @@ footer {
 
 .row .card .card-title{
     background-color: #0000008f;
-    bottom: -25px;
+    bottom: -15px;
+}
+
+#display-cart .card-title{
+    background-color: #0000008f;
+    font-size: 1.6rem;
+    padding: 10px;
+    bottom: -15px;
+}
+#display-cart{
+    width: 100%;
+}
+
+#display-cart .quantity-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#display-cart input[id^="quantity-"]{
+    width: 20%;
 }
 
 section .content {
@@ -169,6 +189,7 @@ section .content {
 }
 
 .tc-white, 
+.tc-white input, 
 .tc-white a {
     color: white!important;
 }
@@ -246,12 +267,6 @@ a.sidenav-trigger{
     padding: 2rem;
 }
 
-#display-cart{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-}
-
 a.red-btn.custom-btn,
 button.red-btn.custom-btn {
     background-color: #ac2300;
@@ -298,7 +313,51 @@ footer section {
     display: flex;
     justify-content: end;
 }
-/* --------
+/* -------- */
+
+/* ---- payment ---- */
+
+#card-number {
+    font-size: 1px;
+    color: #00000000;
+}
+
+#card-value {
+    position: absolute;
+    left: 2%;
+    top: 10%;
+}
+
+#payment-form.carousel .carousel-item:not(.active) {
+    opacity: 0!important;
+}
+
+#payment-form.carousel .carousel-item {
+    width: 80%;
+    margin: 5% 10%;
+}
+
+#payment-form {
+    background-color: white;
+    padding: 5% 10%;
+    display: flex;
+    align-items: end;
+}
+
+#payment-form #payment-last {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+#payment-form .slider-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* -------- */
 
 /* ---- medias query ---- */
 
@@ -333,18 +392,24 @@ footer section {
         transform: translateX(0)!important;
     }
 
-    nav > div {
-        display: flex;
-        align-items: center;
-        justify-content: end;
-    }
-
     section div.reverse{
         flex-direction: column-reverse;
     }
 
     .content {
         text-align: center;
+    }
+
+    .row .card .card-image{
+        display: initial;
+    }
+
+    .row .card .card-title{
+        background-color: #0000008f;
+        font-size: 1.6rem;
+        padding: 10px;
+        bottom: -15px;
+        left: -100%;
     }
 
     #presentation,
@@ -363,4 +428,21 @@ footer section {
         max-width: 300px;
     }
 
+}
+
+@media (max-width: 620px){
+    nav div > .brand-logo {
+        display: none;
+    }
+
+    nav > div {
+        justify-content: center;
+    }
+}
+
+@media (min-width: 601px){
+    #articles .tags {
+        z-index: 996;
+        position: absolute;
+    }
 }
